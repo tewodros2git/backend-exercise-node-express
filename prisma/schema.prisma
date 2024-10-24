@@ -18,4 +18,13 @@ model Employee {
   lastName        String
   date_of_birth   DateTime
   secret          String
+  applications     Application[] @relation 
+}
+
+model Application {
+  id              Int      @id @default(autoincrement())
+  leave_start_date DateTime
+  leave_end_date   DateTime
+  employeeId       Int
+  employee         Employee @relation(fields: [employeeId], references: [id])
 }
