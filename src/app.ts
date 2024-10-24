@@ -119,7 +119,40 @@ app.get('/employees/:id', async (req, res) => {
  *               $ref: '#/components/schemas/Employee'
  */
 app.patch('/employees/:id', async (req, res) => {
-  res.json({ message: 'Implement Me!'})   
+  const employeeId = Number(req.params.id); 
+  const { firstName, lastName } = req.body; 
+
+  // Validate the input
+  if (!firstName || firstName.length < 1 || !lastName || lastName.length < 1) {
+    return res.status(400).json({ message: 'First name and last name must be at least 1 character long and cannot be empty.' });
+  }
+    // Find the employee by ID
+    const employee = await prisma.employee.findUnique({
+      where: { id: employeeId }
+    });
+
+    if (!employee) {
+      // If employee is not found, return a 404 response
+      return res.status(404).json({ message: 'The employee to patch does not exist' });
+    }
+    // Update the employee's first and last name
+    const updatedEmployee = await prisma.employee.update({
+      where: { id: employeeId },
+      data: {
+        firstName,
+        lastName
+      },
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        date_of_birth: true
+      }
+    });
+
+    // Return the updated employee data
+    res.json(updatedEmployee);
+  
 })
 
 app.post('/applications', async (req, res) => {
