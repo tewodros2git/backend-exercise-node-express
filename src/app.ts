@@ -62,7 +62,23 @@ app.get('/benefits', async (req, res) => {
    *               $ref: '#/components/schemas/Employee'
    */
 app.get('/employees/:id', async (req, res) => {
-  res.json({ message: 'Implement Me!'})    
+  const employeeId = Number(req.params.id);
+  const employee = await prisma.employee.findUnique({
+    where: { id: employeeId },
+    select: {
+      id: true,
+      firstName: true,
+      lastName: true,
+      date_of_birth: true,
+    }
+  });
+  if (!employee) {
+    // If employee is not found, return a 404 response
+    return res.status(404).json({ message: 'Employee not found' });
+  }
+  // Return the employee data without the 'secret' field
+  res.json(employee);
+    
 })
 
 /**
