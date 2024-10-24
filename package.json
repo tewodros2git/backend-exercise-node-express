@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nodemon --watch src --ext ts,tsx --exec ts-node src/index.ts",
     "prisma:setup": "npx prisma migrate dev && npx prisma db seed",
-    "prisma:migrate": "npx prisma migrate dev", 
+    "prisma:migrate": "npx prisma migrate dev",
     "prisma:reset": "npx prisma migrate reset",
     "prisma:studio": "npx prisma studio",
     "gen:swagger": "ts-node lib/generateSwagger.ts",
@@ -13,11 +13,12 @@
   },
   "dependencies": {
     "@prisma/client": "5.16.1",
-    "@prisma/sdk": "^4.0.0",
+    "@prisma/sdk": "^3.15.2",
     "cors": "^2.8.5",
-    "express": "4.19.2",
+    "express": "^4.21.1",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1"
+    "swagger-ui-express": "^5.0.1",
+    "undici": "^5.28.4"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
