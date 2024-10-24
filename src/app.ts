@@ -156,7 +156,34 @@ app.patch('/employees/:id', async (req, res) => {
 })
 
 app.post('/applications', async (req, res) => {
-  res.json({ message: 'Implement Me!'})
+
+    const { leave_start_date, leave_end_date, employeeId } = req.body;
+
+    // Validate required fields
+    if (!leave_start_date || !leave_end_date || !employeeId) {
+      return res.status(400).json({ message: 'Missing required fields: leave_start_date, leave_end_date, and employeeId.' });
+    }
+
+    // Check if the employee exists
+    const employee = await prisma.employee.findUnique({
+      where: { id: employeeId }
+    });
+
+    if (!employee) {
+      return res.status(400).json({ message: 'Employee ID does not exist.' });
+    }
+
+    // Create the application
+    const application = await prisma.application.create({
+      data: {
+        leave_start_date: new Date(leave_start_date),
+        leave_end_date: new Date(leave_end_date),
+        employee: { connect: { id: employeeId } }  // Connect the application to the existing employee
+      }
+    });
+
+    // Return the created application
+    return res.status(201).json(application);
 })
 
 app.get('/applications/search', async (req, res) => {
