@@ -11,107 +11,7 @@
       "http://localhost:3000"
     ]
   },
-  "paths": {
-    "/benefits": {
-      "get": {
-        "summary": "Fetch benefits",
-        "responses": {
-          "200": {
-            "description": "Returns a list of Benefits.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Benefit"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/employees/{id}": {
-      "get": {
-        "summary": "Fetch an employee by id",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The unique identifier of the employee.",
-            "schema": {
-              "type": "integer",
-              "example": 123
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Returns a list of Employees.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Employee"
-                }
-              }
-            }
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update employee details",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The unique identifier of the employee.",
-            "schema": {
-              "type": "integer",
-              "example": 123
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "Partial employee details to update",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "firstName": {
-                    "type": "string",
-                    "description": "The first name of the employee",
-                    "example": "John"
-                  },
-                  "lastName": {
-                    "type": "string",
-                    "description": "The last name of the employee",
-                    "example": "Smith"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Returns a list of Employees.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Employee"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
+  "paths": {},
   "components": {
     "schemas": {
       "Benefit": {
@@ -142,6 +42,29 @@
           },
           "secret": {
             "type": "string"
+          },
+          "applications": {
+            "type": "application"
+          }
+        }
+      },
+      "Application": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "leave_start_date": {
+            "type": "string"
+          },
+          "leave_end_date": {
+            "type": "string"
+          },
+          "employeeId": {
+            "type": "number"
+          },
+          "employee": {
+            "type": "employee"
           }
         }
       }
