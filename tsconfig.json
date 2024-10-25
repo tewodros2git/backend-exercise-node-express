@@ -6,5 +6,6 @@
     "lib": ["esnext"],
     "esModuleInterop": true,
     "resolveJsonModule": true,
+    "skipLibCheck": true
   }
 }

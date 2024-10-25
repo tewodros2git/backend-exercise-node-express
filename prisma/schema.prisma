@@ -18,7 +18,7 @@ model Employee {
   lastName        String
   date_of_birth   DateTime
   secret          String
-  applications     Application[] @relation 
+  applications     Application[] 
 }
 
 model Application {
@@ -27,4 +27,5 @@ model Application {
   leave_end_date   DateTime
   employeeId       Int
   employee         Employee @relation(fields: [employeeId], references: [id])
+   @@map("applications")
 }
